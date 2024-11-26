@@ -19,36 +19,36 @@ Use the following commands to train GNeuralFlow models (`--training_scheme=lgnf`
 
 ```bash
 sink=(--experiment=synthetic --data=sink --training_scheme=lgnf --n_ts=20 --epochs=1000 --batch-size=50 --weight-decay=1e-05 --model=flow --flow-layers=4 --time-hidden-dim=8 --hidden-layers=2 --hidden-dim=64 --activation=ReLU --final-activation=Identity)
-python -m nfe.train "${sink[@]}" --flow-model=resnet --time-net=TimeFourierBounded --rho=7 --h_tol=1e-10 --h_par=0.19 --rho_max=1e24 --dag_epochs=2
-python -m nfe.train "${sink[@]}" --flow-model=coupling --time-net=TimeFourier --rho=8 --h_tol=1e-11 --h_par=0.22 --rho_max=1e27 --dag_epochs=2
-python -m nfe.train "${sink[@]}" --flow-model=gru --time-net=TimeFourier --rho=8 --h_tol=1e-11 --h_par=0.22 --rho_max=1e27 --dag_epochs=2
+python -m nfe.train "${sink[@]}" --flow-model=resnet --time-net=TimeFourierBounded --rho=7 --h_tol=1e-10 --h_par=0.19 --rho_max=1e24 --dag_epochs=10
+python -m nfe.train "${sink[@]}" --flow-model=coupling --time-net=TimeFourier --rho=8 --h_tol=1e-11 --h_par=0.22 --rho_max=1e27 --dag_epochs=10
+python -m nfe.train "${sink[@]}" --flow-model=gru --time-net=TimeFourier --rho=8 --h_tol=1e-11 --h_par=0.22 --rho_max=1e27 --dag_epochs=10
 ```
-
+(안됨)
 ## Experiments of latent variable modeling: Smoothing approach
 
 ### Activity
 ```bash
 activity=(--experiment=latent_ode --data activity --training_scheme=lgnf --batch-size 100 --epochs 1000 --lr-decay 0.5 --lr-scheduler-step 20 --weight-decay 0.0001 --extrap 0 --classify 1 --hidden-layers 3 --hidden-dim 100 --rec-dims 30 --latents 20 --gru-units 100 --model flow --flow-layers 2 --time-hidden-dim 8)
-python -m nfe.train "${activity[@]}" --flow-model gru --time-net TimeLinear --rho_par=15  --h_par=0.21
-python -m nfe.train "${activity[@]}" --flow-model coupling --time-net TimeLinear --rho_par=7  --h_par=0.21
-python -m nfe.train "${activity[@]}" --flow-model resnet --time-net TimeTanh --rho_par=7 --h_tol=1e-9  --h_par=0.5
+python -m nfe.train "${activity[@]}" --flow-model gru --time-net TimeLinear --rho=15  --h_par=0.21
+python -m nfe.train "${activity[@]}" --flow-model coupling --time-net TimeLinear --rho=7  --h_par=0.21
+python -m nfe.train "${activity[@]}" --flow-model resnet --time-net TimeTanh --rho=7 --h_tol=1e-9  --h_par=0.5
 ```
-
+(안됨)
 ### MuJoCo 
 ```bash
 mujoco=(--experiment=latent_ode --data hopper --training_scheme=lgnf --batch-size 100 --epochs 1000 --lr-decay 0.5 --lr-scheduler-step 20 --weight-decay 0.0001 --extrap 0 --classify 0 --hidden-layers 2 --hidden-dim 100 --rec-dims 100 --gru-units 50 --model flow --flow-layers 2 --time-hidden-dim 8)
-python -m nfe.train "${mujoco[@]}" --flow-model gru --time-net TimeLinear --rho_par=10  --latents 20
-python -m nfe.train "${mujoco[@]}" --flow-model coupling --time-net TimeLinear --rho_par=7  --latents 20
-python -m nfe.train "${mujoco[@]}" --flow-model resnet --time-net TimeTanh --h_par=0.5 --rho_par=15 --latents 15
+python -m nfe.train "${mujoco[@]}" --flow-model gru --time-net TimeLinear --latents 20
+python -m nfe.train "${mujoco[@]}" --flow-model coupling --time-net TimeLinear --latents 20
+python -m nfe.train "${mujoco[@]}" --flow-model resnet --time-net TimeTanh --latents 20
 ```
-
+(안됨)
 
 ### Physionet
 ```bash
 physionet=(--experiment=latent_ode --data physionet --training_scheme=lgnf --dag_epochs=100 --batch-size 100 --epochs 1000 --lr-decay 0.5 --lr-scheduler-step 20 --weight-decay 0.0001 --extrap 0 --classify 1 --hidden-layers 3 --hidden-dim 50 --rec-dims 40 --latents 20 --gru-units 50 --model flow --flow-layers 2 --time-hidden-dim 8)
-python -m nfe.train "${physionet[@]}" --flow-model gru --time-net TimeLinear --h_par=0.5 --rho_par=15
-python -m nfe.train "${physionet[@]}" --flow-model coupling --time-net TimeLinear --h_par=0.5 --rho_par=10
-python -m nfe.train "${physionet[@]}" --flow-model resnet --time-net TimeTanh --rho_par=15
+python -m nfe.train "${physionet[@]}" --flow-model gru --time-net TimeLinear --h_par=0.5 --rho=15
+python -m nfe.train "${physionet[@]}" --flow-model coupling --time-net TimeLinear --h_par=0.5 --rho=10
+python -m nfe.train "${physionet[@]}" --flow-model resnet --time-net TimeTanh --rho=15
 ```
 
 ## Experiments of latent variable modeling: Filtering approach

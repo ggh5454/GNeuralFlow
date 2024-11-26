@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from nfe.experiments import BaseExperiment
 from nfe.experiments.synthetic.data import get_data_loaders, get_single_loader
 from nfe.experiments.synthetic.utils import plot_trajectory_ax
-from nfe.models import ODEModel, CouplingFlow, ResNetFlow
+from nfe.models import ODEModel, CouplingFlow, ResNetFlow, GRUFlow
 from nfe.models.gnn import GNN
 from nfe.models.mlp import MLP
 

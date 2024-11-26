@@ -168,6 +168,9 @@ class CouplingFlow(Module):
             transforms.append(ContinuousAffineCoupling(
                 latent_net=MLP(dim + 1, hidden_dims, 2 * dim),
                 latent_net2=MLP((dim * 2), hidden_dims, dim),
+                latent_net_h=MLP((dim + 1), hidden_dims, 2 * dim, **kwargs),
+                merge_scale=MLP(dim * 2, hidden_dims, dim),
+                merge_shift=MLP(dim * 2, hidden_dims, dim),
                 time_net=getattr(mods, time_net)(2 * dim, hidden_dim=time_hidden_dim),
                 mask='none' if dim == 1 else f'ordered_{i % 2}'))
 

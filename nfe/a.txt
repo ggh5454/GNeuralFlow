@@ -1,0 +1,2 @@
+GNeuralFlow : resnet(1.017e-01), gru(3.634e-01), coupling(8.228e-02), 
+Neural Flow : resnet(3.650e-01), gru(4.135e-01), coupling(3.996e-01), 

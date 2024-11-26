@@ -129,9 +129,9 @@ class GRUFlowBlock(Module):
 
     def residual(self, h, t):
         inp = torch.cat([h, t], -1)
-        r = self.beta * torch.sigmoid(self.lin_hr(inp))
-        z = self.alpha * torch.sigmoid(self.lin_hz(inp))
-        u = torch.tanh(self.lin_hh(torch.cat([r * h, t], -1)))
+        r = self.beta * torch.sigmoid(self.lin_hr2(inp))
+        z = self.alpha * torch.sigmoid(self.lin_hz2(inp))
+        u = torch.tanh(self.lin_hh2(torch.cat([r * h, t], -1)))
         return z * (u - h)
 
     def forward_orig(self, h, t):

@@ -67,8 +67,9 @@ class BaseExperiment:
                  'physionet': 1, 'mimic4': 1, 'mimic3': 1}
 
         self.eval_freq = _freq[args.data]
-
         self.scheduler, self.optim_adj, self.A = None, None, None
+        self.optim = torch.optim.Adam(params=self.model.parameters(), lr=self.lr, weight_decay=self.weight_decay)
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optim, self.args.lr_scheduler_step, self.args.lr_decay)
         self.best_loss = np.inf
         self.waiting = 0
         self.best_model_dic = None
